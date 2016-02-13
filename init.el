@@ -20,6 +20,8 @@
 			 company
 			 ))
 
+(setq company-idle-delay 0)
+
 ;; Helps with filename completion, etc.
 (ido-mode)
 

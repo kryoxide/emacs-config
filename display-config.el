@@ -5,6 +5,14 @@
 (color-theme-initialize)
 (color-theme-taming-mr-arneson)
 
+;; Set the gui emacs window size to just fit on a 1280*800 mac display with the
+;; dock visible
+(add-to-list 'default-frame-alist '(height . 45))
+(add-to-list 'default-frame-alist '(width . 170))
+
+;; Don't open files in new frames in guie emacs
+(setq ns-pop-up-frames nil)
+
 ;; Line numbers everywhere, format prettily.  If we are in graphic mode don't
 ;; display the pipe symbol next to the line numbers
 ( if (display-graphic-p)
