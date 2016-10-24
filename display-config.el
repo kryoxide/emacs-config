@@ -1,23 +1,36 @@
+
 (message "Loading display settings")
 
 (load-missing-packages '(color-theme))
 
 (color-theme-initialize)
 (color-theme-taming-mr-arneson)
-
-;; Set the gui emacs window size to just fit on a 1280*800 mac display with the
-;; dock visible
-(add-to-list 'default-frame-alist '(height . 45))
-(add-to-list 'default-frame-alist '(width . 170))
+;;(color-theme-gnome) 
 
 ;; Don't open files in new frames in guie emacs
-(setq ns-pop-up-frames nil)
+(setq-default ns-pop-up-frames nil)
+
+;; Don't show useless menu bar in gui emacs
+(tool-bar-mode 0)
 
 ;; Line numbers everywhere, format prettily.  If we are in graphic mode don't
-;; display the pipe symbol next to the line numbers
+;; display the pipe symbol next to the line numbers.
 ( if (display-graphic-p)
-    (setq linum-format "%4d")
-  (setq linum-format (concat "%4d" (propertize "│" 'face 'mode-line))))
+    (progn 
+      ;; If we are in graphic mode, set the gui emacs window size to just fit on
+      ;; a 1280*800 mac display with the dock visible
+      (add-to-list 'default-frame-alist '(height . 40))
+      (add-to-list 'default-frame-alist '(width . 170))
+
+      ;; Set font for gui emacs to coincide with iterm font if the Monaco font
+      ;; is available. Otherwise leave everything as it is
+      (cond ((find-font (font-spec :name "Monaco"))
+	     (add-to-list 'default-frame-alist '(font . "Monaco 12")))
+	    ((find-font (font-spec :name "Courier"))
+	     (add-to-list 'default-frame-alist '(font . "Courier 12"))))
+      
+      (setq-default linum-format "%4d"))
+  (setq-default linum-format (concat "%4d" (propertize "│" 'face 'mode-line))))
 
 ;; Always show line numbers
 (global-linum-mode 1)

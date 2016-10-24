@@ -7,23 +7,27 @@
 ;; Shold be happening automatically, possibly can cause some problems
 (package-initialize)
 
-(defun load-missing-packages (package-list)
-  "Install packages in the argument if they aren't already installed"
-  (dolist (package package-list)
-    (unless (package-installed-p package)
-      (progn (package-install package)
-	     (require package)
-	     ))))
-  
+(load "~/.emacs.d/helper-functions.el")
+
+(if (display-graphic-p) (read-zshrc-path))
 
 (load-missing-packages '(flycheck
 			 company
+			 erc
+			 helm
+			 neotree
 			 ))
 
-(setq company-idle-delay 0)
+
+(setq-default company-idle-delay 0)
 
 ;; Helps with filename completion, etc.
-(ido-mode)
+(helm-mode)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
+(global-set-key (kbd "M-x") 'helm-M-x)
+
+;; In IRC ignore certain messages
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
 
 ;; Enable dired reusing buffers when hitting 'a'
 (put 'dired-find-alternate-file 'disabled nil)
@@ -39,6 +43,15 @@
 (load-file "~/.emacs.d/scala-config.el")
 (load-file "~/.emacs.d/python-config.el")
 (load-file "~/.emacs.d/csharp-config.el")
+
+;; Save all the autosaves to one directory
+(setq temp-file-directory "~/emacs-temp-files")
+(message (concat "Saving emacs temp files to: " temp-file-directory))
+
+(setq backup-directory-alist
+      `((".*" . ,temp-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" , temp-file-directory t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;
@@ -60,3 +73,4 @@
 ;; A handy shortcut to kill entire lines
 (global-set-key (kbd "M-9") 'kill-whole-line)
 
+(global-set-key (kbd "<f8>") 'neotree-toggle)
