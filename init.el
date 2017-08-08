@@ -22,7 +22,8 @@
 (setq-default company-idle-delay 0)
 
 ;; Helps with filename completion, etc.
-(helm-mode)
+
+;;(helm-mode)
 (global-set-key (kbd "C-x C-f") 'helm-find-files)
 (global-set-key (kbd "M-x") 'helm-M-x)
 
@@ -42,7 +43,8 @@
 (load "~/.emacs.d/haskell-stuff.el")
 (load-file "~/.emacs.d/scala-config.el")
 (load-file "~/.emacs.d/python-config.el")
-(load-file "~/.emacs.d/csharp-config.el")
+(load-file "~/.emacs.d/rust-config.el")
+;(load-file "~/.emacs.d/csharp-config.el")
 
 ;; Save all the autosaves to one directory
 (setq temp-file-directory "~/emacs-temp-files")
@@ -52,6 +54,11 @@
       `((".*" . ,temp-file-directory)))
 (setq auto-save-file-name-transforms
       `((".*" , temp-file-directory t)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;
+;; Projectile
+(global-set-key (kbd "C-c p h") 'helm-projectile)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;

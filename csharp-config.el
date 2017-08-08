@@ -13,6 +13,8 @@
     (eval-after-load 'company
       '(add-to-list 'company-backends 'company-omnisharp))
 
+    (setq omnisharp-code-format-expand-tab t)
+    (setq indent-tabs-mode nil)
     (add-hook 'csharp-mode-hook 'yas-minor-mode)
     (add-hook 'csharp-mode-hook 'company-mode)
     (add-hook 'csharp-mode-hook 'turn-on-eldoc-mode) ; Show function arg list

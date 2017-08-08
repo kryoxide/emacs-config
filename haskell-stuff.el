@@ -9,7 +9,8 @@
 (add-hook 'haskell-mode-hook 'turn-on-hi2)
 
 ;; Activate a mode to interact with a running stack/cabal/ghci process
-(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+;(add-hook 'haskell-mode-hook 'interactive-haskell-mode)
+(add-hook 'haskell-mode-hook 'intero-mode)
 
 ;; Type check etc on the fly
 (with-eval-after-load 'flycheck
@@ -21,7 +22,8 @@
 (with-eval-after-load 'company
   (progn
     (push 'company-ghci company-backends)
-    (add-hook 'haskell-mode-hook 'company-mode)))
+    (add-hook 'haskell-mode-hook 'company-mode)
+    (custom-set-variables '(company-ghc-show-info t))))
 
 ;; Suggest cabal file packages to import
 (custom-set-variables

@@ -4,7 +4,10 @@
 (load-missing-packages '(color-theme))
 
 (color-theme-initialize)
-(color-theme-taming-mr-arneson)
+
+;; Calling it twice makes it look nicer for some inexplicable reason
+;;(color-theme-taming-mr-arneson)
+
 ;;(color-theme-gnome) 
 
 ;; Don't open files in new frames in guie emacs
@@ -16,7 +19,11 @@
 ;; Line numbers everywhere, format prettily.  If we are in graphic mode don't
 ;; display the pipe symbol next to the line numbers.
 ( if (display-graphic-p)
-    (progn 
+    (progn
+
+      ;; Use light theme in graphic display
+      (color-theme-snow)
+      
       ;; If we are in graphic mode, set the gui emacs window size to just fit on
       ;; a 1280*800 mac display with the dock visible
       (add-to-list 'default-frame-alist '(height . 40))
@@ -30,7 +37,10 @@
 	     (add-to-list 'default-frame-alist '(font . "Courier 12"))))
       
       (setq-default linum-format "%4d"))
-  (setq-default linum-format (concat "%4d" (propertize "│" 'face 'mode-line))))
+  (progn
+    (setq-default linum-format (concat "%4d" (propertize "│" 'face 'mode-line)))
+    ;; Use dark theme in console
+    (color-theme-dark-laptop)))
 
 ;; Always show line numbers
 (global-linum-mode 1)
